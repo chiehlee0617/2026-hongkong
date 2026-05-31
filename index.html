@@ -1,0 +1,503 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🇭🇰 Our 4-Day Hong Kong Itinerary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --primary-color: #1a1a1a;
+            --accent-red: #de211b;
+            --text-dark: #2b2d42;
+        }
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            margin: 0;
+            padding-bottom: 80px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #de211b, #1a1a1a);
+            color: white;
+            text-align: center;
+            padding: 30px 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        header h1 { margin: 0; font-size: 1.6rem; font-weight: 700; }
+        header p { margin: 6px 0 0 0; font-size: 0.95rem; opacity: 0.9; }
+
+        .day-scroller {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            display: flex;
+            overflow-x: auto;
+            padding: 12px 5px;
+            z-index: 1000;
+        }
+
+        .day-scroller::-webkit-scrollbar { display: none; }
+
+        .day-badge {
+            display: inline-block;
+            padding: 8px 18px;
+            margin: 0 5px;
+            background-color: #e9ecef;
+            color: var(--text-dark);
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .day-badge.active, .day-badge:active {
+            background-color: var(--accent-red);
+            color: white;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 15px auto;
+            padding: 0 12px;
+        }
+
+        .country-header {
+            border-left: 6px solid var(--accent-red);
+            padding-left: 12px;
+            margin: 20px 0 15px 0;
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .day-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 20px;
+            padding: 18px;
+            scroll-margin-top: 75px;
+        }
+
+        .day-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed #e9ecef;
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+        }
+
+        .day-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .day-date {
+            color: var(--accent-red);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .day-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin: 10px 0;
+            color: #111111;
+            line-height: 1.4;
+        }
+
+        /* ⏱ 時間分離客製化樣式 */
+        .item-block {
+            background: #fafafa;
+            border-left: 4px solid #de211b;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .time-tag {
+            display: inline-block;
+            background-color: #f1f3f5;
+            color: #495057;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-bottom: 6px;
+            border: 1px solid #dee2e6;
+        }
+
+        .item-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #222;
+            margin-top: 2px;
+        }
+
+        .item-details {
+            margin: 8px 0 0 0;
+            padding-left: 18px;
+            font-size: 0.9rem;
+            color: #444;
+            line-height: 1.5;
+        }
+        
+        .item-details li { margin-bottom: 4px; }
+
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .btn-map { background-color: #e2eafc; color: #1d3557; }
+        .btn-ticket { background-color: #fff3b0; color: #744fc6; border: 1px solid #ffe3a8; }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🇭🇰 Hong Kong Honeymoon</h1>
+        <p>2026/06/18 - 06/21 ｜ 四天三夜精華極順版</p>
+    </header>
+
+    <div class="day-scroller" id="dayScroller">
+        <a href="#Day-1" class="day-badge">Day-1</a>
+<a href="#Day-2" class="day-badge">Day-2</a>
+<a href="#Day-3" class="day-badge">Day-3</a>
+<a href="#Day-4" class="day-badge">Day-4</a>
+
+    </div>
+
+    <div class="container">
+        <div class="country-section">
+<h2 class="country-header">香港精華特攻 🇭🇰</h2>
+  <div class="day-card" id="Day-1">
+    <div class="day-card-header">
+      <span class="day-tag">Day-1</span>
+      <span class="day-date">2026/06/18</span>
+    </div>
+    <div class="day-title">抵達香港 ｜ 港飲二選一、維港夜景經典主秀與 K11 散步</div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 14:35 - 16:35</span>
+      <div class="item-title">✈️ 抵達香港國際機場</div>
+      <ul class="item-details">
+        <li>班機降落香港，依序辦理入境手續與提取行李。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Hong+Kong+International+Airport" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 16:35 - 17:30</span>
+      <div class="item-title">🚌 前往市區與飯店 Check-in</div>
+      <ul class="item-details">
+        <li>搭乘機場快線或城巴機場快線前往尖沙咀。</li>
+        <li>入住飯店辦理手續並寄存行李。</li>
+        <li>🏠 住宿點：Page148, Page Hotel（尖沙咀）</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Page148,+Page+Hotel" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 18:00 - 19:30</span>
+      <div class="item-title">🍽 晚餐 ｜ 經典港味第一發（二選一風味）</div>
+      <ul class="item-details">
+        <li>【方案 A ｜ Bolton Cafe】道地茶餐廳，體驗在地快節奏飲食文化與經典碟頭飯。</li>
+        <li>【方案 B ｜ 蘭芳園 (尖沙咀)】絲襪奶茶始祖分店，必點絲襪奶茶與傳統西多士。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Lan+Fong+Yuen+Tsim+Sha+Tsui" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 19:30 - 21:30</span>
+      <div class="item-title">🛍 逛街 ｜ K11 Musea 藝術商圈散步</div>
+      <ul class="item-details">
+        <li>進 K11 Musea 吹冷氣，讚嘆前衛的幾何藝術建築空間，隨意走逛。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=K11+MUSEA" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 20:00 - 20:20</span>
+      <div class="item-title">🌉 夜景 ｜ 維港幻彩詠香江主秀</div>
+      <ul class="item-details">
+        <li>準時鎖定海濱長廊，觀賞維多利亞港著名的燈光音樂匯演。</li>
+        <li>順著星光大道與尖沙咀海濱漫步，拍攝經典香港天際線。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Avenue+of+Stars" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 21:30 - 22:00</span>
+      <div class="item-title">🍰 宵夜 ｜ Bakehouse 爆漿蛋塔</div>
+      <ul class="item-details">
+        <li>前往 Bakehouse 購買超人氣酸種蛋塔或精緻烘焙點心。</li>
+        <li>外帶打包帶回 Page148 飯店，洗完澡後放鬆享受。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Bakehouse+Tsim+Sha+Tsui" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+  </div>
+  <div class="day-card" id="Day-2">
+    <div class="day-card-header">
+      <span class="day-tag">Day-2</span>
+      <span class="day-date">2026/06/19</span>
+    </div>
+    <div class="day-title">香港迪士尼樂園 ｜ 全日童話夢幻體驗、城堡夜間秀與東涌大補給</div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 09:00 - 09:30</span>
+      <div class="item-title">🏨 迪士尼樂園酒店 Check-in</div>
+      <ul class="item-details">
+        <li>今日移動至迪士尼區。</li>
+        <li>先至飯店辦理 Check-in 並寄存行李，準備開園直接入園。</li>
+        <li>🏠 住宿點：Hong Kong Disneyland Hotel（香港迪士尼樂園酒店）</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Hong+Kong+Disneyland+Hotel" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 10:00 - 13:00</span>
+      <div class="item-title">🎢 上午 ｜ 迪士尼樂園衝鋒冒險</div>
+      <ul class="item-details">
+        <li>入園優先衝刺核心設施：</li>
+        <li>1. 迷離大宅 (Mystic Manor) - 全球獨有特效震撼。</li>
+        <li>2. 魔雪奇緣世界 (Frozen World) - 魔雪奇幻之旅與雪嶺滑雪橇。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Hong+Kong+Disneyland" target="_blank">📍 地圖導航</a>
+        <a class="action-btn btn-ticket" href="https://www.hongkongdisneyland.com/zh-hk/tickets/" target="_blank">🎫 官方購票</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 13:00 - 14:00</span>
+      <div class="item-title">🍔 中午 ｜ 園區快餐補給</div>
+      <ul class="item-details">
+        <li>直接在園區內餐廳享用快餐（炸雞、漢堡或各式飯類），爭取遊玩時間。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Clopin's+Festival+of+Foods" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 14:00 - 19:30</span>
+      <div class="item-title">🎪 下午 ｜ 傳奇劇場與主題園區暢玩</div>
+      <ul class="item-details">
+        <li>必看劇場：【獅子王慶典 (Festival of the Lion King)】舞台張力極強，記得提早去排隊！</li>
+        <li>暢玩反斗奇兵大本營 (Toy Story Land) 與森林河流之旅 (Jungle River Cruise)。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Toy+Story+Land" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 19:40 - 20:10</span>
+      <div class="item-title">🌙 晚上 ｜ 迪士尼城堡夜間煙火光影秀</div>
+      <ul class="item-details">
+        <li>於奇妙夢想城堡前卡位，觀賞融合煙火、光雕投影與經典音樂的璀璨星光秀。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Castle+of+Magical+Dreams" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 20:40 - 22:30</span>
+      <div class="item-title">🍽 晚餐 ｜ 東涌 Citygate 美食大補給（二選一）</div>
+      <ul class="item-details">
+        <li>散場後搭乘地鐵至東涌站的東薈城 (Citygate)。</li>
+        <li>【方案 A ｜ Oolaa Tung Chung】高質感西式餐酒館，氣氛輕鬆，適合蜜月談心。</li>
+        <li>【方案 B ｜ 大食代 Food Republic】選擇極多元，能迅速補充走了一整天的體力。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Citygate+Outlets" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+  </div>
+  <div class="day-card" id="Day-3">
+    <div class="day-card-header">
+      <span class="day-tag">Day-3</span>
+      <span class="day-date">2026/06/20</span>
+    </div>
+    <div class="day-title">中環文藝復興路線 ｜ 傳奇甘牌燒鵝與太平山百萬夜景大秀</div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 09:30 - 12:30</span>
+      <div class="item-title">☀️ 上午 ｜ 輕鬆慵懶或大佛朝聖（二選一方案）</div>
+      <ul class="item-details">
+        <li>【方案 A (輕鬆)】：睡到飽，悠閒晃去中環開啟美食散策。</li>
+        <li>【方案 B (觀光)】：搭乘昂坪 360 纜車前往參觀壯麗的天壇大佛與昂坪市集。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Ngong+Ping+360" target="_blank">📍 地圖導航</a>
+        <a class="action-btn btn-ticket" href="https://www.np360.com.hk/tc" target="_blank">🎫 官方購票</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 12:30 - 13:30</span>
+      <div class="item-title">🏨 Motto by Hilton 放行李</div>
+      <ul class="item-details">
+        <li>前往今日下榻飯店辦理 Check-in 或寄放行李。</li>
+        <li>🏠 住宿點：Motto by Hilton Hong Kong SoHo（中環/上環區）</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Motto+by+Hilton+Hong+Kong+SoHo" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 13:30 - 17:30</span>
+      <div class="item-title">🏙 下午 ｜ 中環復古街區深度散策</div>
+      <ul class="item-details">
+        <li>搭乘世界最長的【中環至半山自動扶手電梯】遊覽兩側街景。</li>
+        <li>走訪 PMQ 元創方創意基地、拍下嘉咸街壁畫，並在中環 SoHo 蘇豪區喝杯咖啡。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Central–Mid-Levels+Escalators" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 17:30 - 19:00</span>
+      <div class="item-title">🍽 晚餐 ｜ 甘牌燒鵝（摘星傳奇風味）🔥</div>
+      <ul class="item-details">
+        <li>享用招牌外皮酥脆、肉質多汁嫩滑的燒鵝。</li>
+        <li>📌 蜜月排隊提示：人氣極高，建議提早去拿號碼牌，避免正餐時間久候。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Kam's+Roast+Goose" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 19:30 - 21:30</span>
+      <div class="item-title">🌃 晚上 ｜ 太平山百萬夜景主秀</div>
+      <ul class="item-details">
+        <li>搭乘山頂纜車 Peak Tram 直上太平山頂。</li>
+        <li>可選免費的【獅子亭】或步行 15 分鐘至【盧吉道 (Lugard Road)】拍攝毫無遮擋的絕美香港全景夜景。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=The+Peak+Tram" target="_blank">📍 地圖導航</a>
+        <a class="action-btn btn-ticket" href="https://www.thepeak.com.hk/tc" target="_blank">🎫 官方購票</a>
+      </div>
+    </div>
+  </div>
+  <div class="day-card" id="Day-4">
+    <div class="day-card-header">
+      <span class="day-tag">Day-4</span>
+      <span class="day-date">2026/06/21</span>
+    </div>
+    <div class="day-title">經典早餐 ｜ 兩大核心商圈最後血拼與必買伴手禮回程</div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 08:30 - 10:00</span>
+      <div class="item-title">☕ 早餐 ｜ 華嫂冰室朝聖</div>
+      <ul class="item-details">
+        <li>享用招牌菠蘿包（夾冰鎮奶油與番茄烘蛋）與冰花奶茶，開啟活力最後一天。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Wasou+Cafe+Wan+Chai" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 10:00 - 13:00</span>
+      <div class="item-title">🛍 中午 ｜ 核心商圈最後衝刺（二選一）</div>
+      <ul class="item-details">
+        <li>【方案 A (尖沙咀)】：主攻 K11 MUSEA 的設計精品與超級巨型商場海港城 (Harbour City)。</li>
+        <li>【方案 B (銅鑼灣)】：崇光百貨 (SOGO) 與地標性複合購物中心時代廣場 (Times Square)。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Harbour+City" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 13:00 - 14:00</span>
+      <div class="item-title">🎁 伴手禮 ｜ 香港必買神物掃貨</div>
+      <ul class="item-details">
+        <li>珍妮曲奇 (Jenny Bakery)：入口即化的經典聰明小熊奶油餅乾。</li>
+        <li>順路補齊中環永吉街【檸檬王】的甘草檸檬與在地【蝴蝶酥】。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Jenny+Bakery+Tsim+Sha+Tsui" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 14:00 - 14:30</span>
+      <div class="item-title">🚖 啟程 ｜ 出發前往機場</div>
+      <ul class="item-details">
+        <li>返回飯店取回完整行李，搭乘機場快線或計程車出發前往香港國際機場。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Motto+by+Hilton+Hong+Kong+SoHo" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 14:30 - 17:35</span>
+      <div class="item-title">✈️ 傍晚 ｜ 機場最後採買與圓滿回程</div>
+      <ul class="item-details">
+        <li>辦理登機與行李託運，可在免稅店進行最後採買。</li>
+        <li>搭乘 17:35 航班起飛，蜜月特攻之旅完美圓滿落幕！</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Hong+Kong+International+Airport" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div>
+
+    <a href="#" class="back-to-top">▲</a>
+
+    <script>
+        const badges = document.querySelectorAll('.day-badge');
+        badges.forEach(badge => {
+            badge.addEventListener('click', function() {
+                badges.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
