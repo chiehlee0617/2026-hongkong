@@ -96,7 +96,7 @@
 
         .day-badge {
             display: inline-block;
-            padding: 8px 20px;
+            padding: 8px 16px;
             margin: 0 5px;
             background-color: #e9ecef;
             color: var(--text-dark);
@@ -106,6 +106,7 @@
             font-weight: 500;
             white-space: nowrap;
             transition: all 0.2s ease;
+            flex-shrink: 0; /* 防止字數變多時標籤寬度被擠壓 */
         }
 
         .day-badge.active {
@@ -136,7 +137,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
             margin-bottom: 20px;
             padding: 18px;
-            scroll-margin-top: 75px;
+            scroll-margin-top: 80px;
         }
 
         .day-card-header {
@@ -268,10 +269,10 @@
     </header>
 
     <div class="day-scroller" id="dayScroller">
-        <a href="#Day-1" class="day-badge">Day-1</a>
-<a href="#Day-2" class="day-badge">Day-2</a>
-<a href="#Day-3" class="day-badge">Day-3</a>
-<a href="#Day-4" class="day-badge">Day-4</a>
+        <a href="#Day-1" class="day-badge">Day-1 (06/18)</a>
+<a href="#Day-2" class="day-badge">Day-2 (06/19)</a>
+<a href="#Day-3" class="day-badge">Day-3 (06/20)</a>
+<a href="#Day-4" class="day-badge">Day-4 (06/21)</a>
 
     </div>
 
@@ -578,7 +579,7 @@
     <div class="item-block">
       <span class="time-tag">⏱ 10:30 - 13:00</span>
       <div class="item-title">🛍 中午 ｜ 尖沙咀巨型商圈最後衝刺 🌟</div>
-      <img class="item-img" src="https://images.unsplash.com/photo-1516681017910-ea9892c902b4?auto=format&fit=crop&w=1200&q=80" alt="🛍 中午 ｜ 尖沙咀巨型商圈最後衝刺 🌟" loading="lazy">
+      <img class="item-img" src="https://cdn.hk01.com/di/media/images/925521/org/f05e7d9f781dcbfbe371d4ab88cba533.JPG/lwuQIDfQvwqxDwJUFk_qLN0syEdxf8J6WkS8v1pEvL8?v=w1920" alt="🛍 中午 ｜ 尖沙咀巨型商圈最後衝刺 🌟" loading="lazy">
       <ul class="item-details">
         <li>✨ 值得逛買：主攻全港最大的【海港城】！可逛亞洲最大的玩具反斗城、高檔美妝專區，並去「誠品生活」看維港海景第一排。最後到頂樓「海運觀點」展望台（270度免費寬廣海景）拍全家完美大合照！</li>
       </ul>
@@ -640,22 +641,62 @@
     <script>
         const badges = document.querySelectorAll('.day-badge');
         const scroller = document.getElementById('dayScroller');
+        const dayCards = document.querySelectorAll('.day-card');
         
+        function centerActiveBadge(activeBadge) {
+            if (!activeBadge) return;
+            const badgeOffset = activeBadge.offsetLeft;
+            const badgeWidth = activeBadge.offsetWidth;
+            const scrollerWidth = scroller.offsetWidth;
+            scroller.scrollTo({
+                left: badgeOffset - (scrollerWidth / 2) + (badgeWidth / 2),
+                behavior: 'smooth'
+            });
+        }
+
         badges.forEach(badge => {
             badge.addEventListener('click', function(e) {
-                badges.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
                 
-                const badgeOffset = this.offsetLeft;
-                const badgeWidth = this.offsetWidth;
-                const scrollerWidth = scroller.offsetWidth;
-                scroller.scrollTo({
-                    left: badgeOffset - (scrollerWidth / 2) + (badgeWidth / 2),
-                    behavior: 'smooth'
-                });
+                if (targetElement) {
+                    const topOffset = targetElement.getBoundingClientRect().top + window.pageYOffset - 75;
+                    window.scrollTo({
+                        top: topOffset,
+                        behavior: 'smooth'
+                    });
+                    
+                    badges.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    centerActiveBadge(this);
+                }
             });
         });
 
+        const observerOptions = {
+            root: null,
+            rootMargin: '-30% 0px -60% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const currentId = entry.target.getAttribute('id');
+                    const targetBadge = document.querySelector(`.day-badge[href="#${currentId}"]`);
+                    
+                    if (targetBadge && !targetBadge.classList.contains('active')) {
+                        badges.forEach(b => b.classList.remove('active'));
+                        targetBadge.classList.add('active');
+                        centerActiveBadge(targetBadge);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        dayCards.forEach(card => observer.observe(card));
+        
         if(badges.length > 0) {
             badges[0].classList.add('active');
         }
