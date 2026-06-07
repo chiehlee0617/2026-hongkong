@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🇭🇰 Our 4-Day Hong Kong Itinerary</title>
+    <title>🇭🇰 2026 香港家族旅行 ｜ 四天三夜完美行程</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -13,6 +13,10 @@
             --primary-color: #1a1a1a;
             --accent-red: #de211b;
             --text-dark: #2b2d42;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
@@ -24,32 +28,75 @@
         }
 
         header {
-            background: linear-gradient(135deg, #de211b, #1a1a1a);
+            position: relative;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), 
+                              url('https://pgw.udn.com.tw/gw/photo.php?u=https://uc.udn.com.tw/photo/2025/01/08/0/31235396.jpg&x=0&y=0&sw=0&sh=0&exp=3600&w=950');
+            background-size: cover;
+            background-position: center;
             color: white;
             text-align: center;
-            padding: 30px 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 40px 15px 30px 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-        header h1 { margin: 0; font-size: 1.6rem; font-weight: 700; }
-        header p { margin: 6px 0 0 0; font-size: 0.95rem; opacity: 0.9; }
+        header h1 { 
+            margin: 0; 
+            font-size: 1.8rem; 
+            font-weight: 700; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+        }
+        
+        header p { 
+            margin: 8px 0 20px 0; 
+            font-size: 1rem; 
+            opacity: 0.95;
+            font-weight: 500;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+        }
+
+        .weather-tip-box {
+            max-width: 570px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-size: 0.85rem;
+            color: #ffffff;
+            line-height: 1.5;
+            text-align: left;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .weather-tip-box b {
+            color: #ffda79;
+        }
+
+        .weather-tip-box a {
+            color: #4cd137;
+            text-decoration: underline;
+            font-weight: bold;
+        }
 
         .day-scroller {
             position: sticky;
             top: 0;
-            background: rgba(255, 255, 255, 0.96);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            background: rgba(255, 255, 255, 0.97);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
             display: flex;
             overflow-x: auto;
-            padding: 12px 5px;
+            padding: 12px 8px;
             z-index: 1000;
+            -webkit-overflow-scrolling: touch;
         }
 
         .day-scroller::-webkit-scrollbar { display: none; }
 
         .day-badge {
             display: inline-block;
-            padding: 8px 18px;
+            padding: 8px 20px;
             margin: 0 5px;
             background-color: #e9ecef;
             color: var(--text-dark);
@@ -57,11 +104,15 @@
             text-decoration: none;
             font-size: 0.85rem;
             font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.2s ease;
         }
 
-        .day-badge.active, .day-badge:active {
+        .day-badge.active {
             background-color: var(--accent-red);
             color: white;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(222,33,27,0.3);
         }
 
         .container {
@@ -120,7 +171,6 @@
             line-height: 1.4;
         }
 
-        /* ⏱ 時間分離客製化樣式 */
         .item-block {
             background: #fafafa;
             border-left: 4px solid #de211b;
@@ -137,7 +187,7 @@
             font-weight: 700;
             padding: 3px 8px;
             border-radius: 4px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             border: 1px solid #dee2e6;
         }
 
@@ -146,6 +196,17 @@
             font-size: 1rem;
             color: #222;
             margin-top: 2px;
+            margin-bottom: 10px;
+        }
+
+        .item-img {
+            width: 100%;
+            height: auto;
+            max-height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
         }
 
         .item-details {
@@ -156,7 +217,7 @@
             line-height: 1.5;
         }
         
-        .item-details li { margin-bottom: 4px; }
+        .item-details li { margin-bottom: 6px; }
 
         .btn-group {
             display: flex;
@@ -198,8 +259,12 @@
 <body>
 
     <header>
-        <h1>🇭🇰 Hong Kong Honeymoon</h1>
-        <p>2026/06/18 - 06/21 ｜ 四天三夜精華極順版</p>
+        <h1>🇭🇰 Hong Kong Family Trip</h1>
+        <p>2026/06/18 - 06/21 ｜ 四天三夜家族完美極順版</p>
+        
+        <div class="weather-tip-box">
+            <b>💡 盛夏出遊叮嚀：</b>6 月香港極熱且多雷雨（隨身帶<b>折疊傘</b>）。室內/地鐵冷氣<b>極冷</b>，請務必準備<b>薄外套</b>防感冒。山路多，請著防滑好走路的鞋子。即時氣象查：<a href="https://www.hko.gov.hk/tc/index.html" target="_blank">香港天文台</a>
+        </div>
     </header>
 
     <div class="day-scroller" id="dayScroller">
@@ -212,29 +277,40 @@
 
     <div class="container">
         <div class="country-section">
-<h2 class="country-header">香港精華特攻 🇭🇰</h2>
+<h2 class="country-header">香港家族旅行 🇭🇰</h2>
   <div class="day-card" id="Day-1">
     <div class="day-card-header">
       <span class="day-tag">Day-1</span>
       <span class="day-date">2026/06/18</span>
     </div>
-    <div class="day-title">抵達香港 ｜ 港飲二選一、維港夜景經典主秀與 K11 散步</div>
+    <div class="day-title">抵達香港 ｜ 快綫轉車避塞車、港飲、維港夜景經典主秀與 K11 散步</div>
     <div class="item-block">
       <span class="time-tag">⏱ 14:35 - 16:35</span>
       <div class="item-title">✈️ 抵達香港國際機場</div>
       <ul class="item-details">
-        <li>班機降落香港，依序辦理入境手續與提取行李。</li>
+        <li>班機降落香港，全家依序辦理入境手續、出關並提取行李。</li>
       </ul>
       <div class="btn-group">
         <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Hong+Kong+International+Airport" target="_blank">📍 地圖導航</a>
       </div>
     </div>
     <div class="item-block">
-      <span class="time-tag">⏱ 16:35 - 17:30</span>
-      <div class="item-title">🚌 前往市區與飯店 Check-in</div>
+      <span class="time-tag">⏱ 16:35 - 17:00</span>
+      <div class="item-title">🚇 搭乘機場快綫（避開下班塞車潮）</div>
       <ul class="item-details">
-        <li>搭乘機場快線或城巴機場快線前往尖沙咀。</li>
-        <li>入住飯店辦理手續並寄存行李。</li>
+        <li>出關後直接前往機場快綫月台（購買團體套票 Group Ticket 更划算）。</li>
+        <li>搭乘快綫直達「九龍站」，車程僅需 22 分鐘，完美跳過市區公路塞車。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=MTR+Airport+Station" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 17:00 - 17:30</span>
+      <div class="item-title">🚖 九龍站轉計程車 ➔ 飯店 Check-in</div>
+      <ul class="item-details">
+        <li>抵達九龍站後順著指標至的士站，搭乘紅色的士直達 Page148 飯店。</li>
+        <li>車資約港幣 $50/台，大行李每件加收 HK$6！</li>
         <li>🏠 住宿點：Page148, Page Hotel（尖沙咀）</li>
       </ul>
       <div class="btn-group">
@@ -245,7 +321,7 @@
       <span class="time-tag">⏱ 18:00 - 19:30</span>
       <div class="item-title">🍽 晚餐 ｜ 經典港味第一發（二選一風味）</div>
       <ul class="item-details">
-        <li>【方案 A ｜ Bolton Cafe】道地茶餐廳，體驗在地快節奏飲食文化與經典碟頭飯。</li>
+        <li>【方案 A ｜ Bolton Cafe】道地茶餐廳，體驗在地快節奏飲食文化。推薦點「招牌生炸雞髀煎雙蛋飯」或超吸睛的「冰火雪糕菠蘿包」！</li>
         <li>【方案 B ｜ 蘭芳園 (尖沙咀)】絲襪奶茶始祖分店，必點絲襪奶茶與傳統西多士。</li>
       </ul>
       <div class="btn-group">
@@ -254,9 +330,11 @@
     </div>
     <div class="item-block">
       <span class="time-tag">⏱ 19:30 - 21:30</span>
-      <div class="item-title">🛍 逛街 ｜ K11 Musea 藝術商圈散步</div>
+      <div class="item-title">🛍 逛街 ｜ K11 MUSEA 藝術商圈散步</div>
+      <img class="item-img" src="https://www.mehongkong.com/.imaging/image-1000x1000/dam/5ea2a6a2-ee66-47ea-b322-3b659d9e3c43/k11-musea-05_860x484.webp" alt="🛍 逛街 ｜ K11 MUSEA 藝術商圈散步" loading="lazy">
       <ul class="item-details">
-        <li>進 K11 Musea 吹冷氣，讚嘆前衛的幾何藝術建築空間，隨意走逛。</li>
+        <li>✨ 值得逛買：內裝媲美魔幻博物館的頂級商場，全家一起吹冷氣欣賞前衛建築，舒適不費力。</li>
+        <li>🥤 吃喝推薦：地下美食地庫（Food Playground）有許多精緻點心，也可以外帶一杯當紅的 % Arabica 咖啡邊散步邊喝。</li>
       </ul>
       <div class="btn-group">
         <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=K11+MUSEA" target="_blank">📍 地圖導航</a>
@@ -264,10 +342,11 @@
     </div>
     <div class="item-block">
       <span class="time-tag">⏱ 20:00 - 20:20</span>
-      <div class="item-title">🌉 夜景 ｜ 維港幻彩詠香江主秀</div>
+      <div class="item-title">🌉 夜景 ｜ 維港「幻彩詠香江」主秀</div>
+      <img class="item-img" src="https://permio1.com/wp-content/uploads/2024/10/1729097968-6ce34ba8e9613e2d4be25a290b86f1bf.jpg" alt="🌉 夜景 ｜ 維港「幻彩詠香江」主秀" loading="lazy">
       <ul class="item-details">
-        <li>準時鎖定海濱長廊，觀賞維多利亞港著名的燈光音樂匯演。</li>
-        <li>順著星光大道與尖沙咀海濱漫步，拍攝經典香港天際線。</li>
+        <li>✨ 值得逛買：順著「星光大道」漫步，尋找明星手印與李小龍銅像，海風吹拂非常舒服，最適合散步。</li>
+        <li>準時在海濱長廊卡位，觀賞維多利亞港著名的璀璨燈光音樂匯演，拍下全家人的第一張大合照。</li>
       </ul>
       <div class="btn-group">
         <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Avenue+of+Stars" target="_blank">📍 地圖導航</a>
@@ -277,8 +356,8 @@
       <span class="time-tag">⏱ 21:30 - 22:00</span>
       <div class="item-title">🍰 宵夜 ｜ Bakehouse 爆漿蛋塔</div>
       <ul class="item-details">
-        <li>前往 Bakehouse 購買超人氣酸種蛋塔或精緻烘焙點心。</li>
-        <li>外帶打包帶回 Page148 飯店，洗完澡後放鬆享受。</li>
+        <li>🛍 必買神物：前四季酒店糕點主廚開的超級名店。必買「酸種蛋塔 (Sourdough Egg Tart)」，外皮酥脆帶有焦香、內餡爆漿香濃！</li>
+        <li>外帶打包回 Page148 飯店，洗完澡後全家人在房間放鬆享受美味宵夜。</li>
       </ul>
       <div class="btn-group">
         <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Bakehouse+Tsim+Sha+Tsui" target="_blank">📍 地圖導航</a>
@@ -290,14 +369,25 @@
       <span class="day-tag">Day-2</span>
       <span class="day-date">2026/06/19</span>
     </div>
-    <div class="day-title">香港迪士尼樂園 ｜ 全日童話夢幻體驗、城堡夜間秀與東涌大補給</div>
+    <div class="day-title">香港迪士尼樂園 ｜ 全日童話體驗、城堡夜間煙火秀與東涌大補給</div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 08:30 - 09:00</span>
+      <div class="item-title">🚖 輕鬆出發 ｜ 計程車直達迪士尼</div>
+      <ul class="item-details">
+        <li>全家於 Page148 退房，請櫃檯協助叫兩部紅色的士。</li>
+        <li>行李一車到底免轉乘，走高速公路直奔迪士尼樂園酒店（車程約25-30分鐘，每台約港幣$210-$250）。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Hong+Kong+Disneyland+Hotel" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
     <div class="item-block">
       <span class="time-tag">⏱ 09:00 - 09:30</span>
       <div class="item-title">🏨 迪士尼樂園酒店 Check-in</div>
       <ul class="item-details">
-        <li>今日移動至迪士尼區。</li>
-        <li>先至飯店辦理 Check-in 並寄存行李，準備開園直接入園。</li>
-        <li>🏠 住宿點：Hong Kong Disneyland Hotel（香港迪士尼樂園酒店）</li>
+        <li>今日移動至迪士尼區。抵達後辦理手續並寄存大型行李。</li>
+        <li>保持滿滿體力，散步或搭乘園區免費接駁車前往樂園大門口等待開園。</li>
+        <li>🏠 住宿點：Hong Kong Disneyland Hotel</li>
       </ul>
       <div class="btn-group">
         <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Hong+Kong+Disneyland+Hotel" target="_blank">📍 地圖導航</a>
@@ -306,10 +396,10 @@
     <div class="item-block">
       <span class="time-tag">⏱ 10:00 - 13:00</span>
       <div class="item-title">🎢 上午 ｜ 迪士尼樂園衝鋒冒險</div>
+      <img class="item-img" src="https://cdn1.parksmedia.wdprapps.disney.com/resize/mwImage/1/630/354/75/vision-dam/digital/hkdl-platform/hkdl-standard-assets/finder_hk/en-intl/system/images/g-l/hkdl-theme-park-1280x720-new.jpg?2022-05-22T00:00:22+00:00" alt="🎢 上午 ｜ 迪士尼樂園衝鋒冒險" loading="lazy">
       <ul class="item-details">
-        <li>入園優先衝刺核心設施：</li>
-        <li>1. 迷離大宅 (Mystic Manor) - 全球獨有特效震撼。</li>
-        <li>2. 魔雪奇緣世界 (Frozen World) - 魔雪奇幻之旅與雪嶺滑雪橇。</li>
+        <li>✨ 必玩/必逛：入園優先衝刺全球獨有「魔雪奇緣世界 (Frozen World)」！必逛『滴答精品店』，裡面有超精緻的艾莎、安娜主題木雕和樂園獨家服飾。</li>
+        <li>隨後遊玩：迷離大宅 (Mystic Manor) - 特效驚人且完全不顛簸，舒適觀賞。</li>
       </ul>
       <div class="btn-group">
         <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Hong+Kong+Disneyland" target="_blank">📍 地圖導航</a>
@@ -330,8 +420,9 @@
       <span class="time-tag">⏱ 14:00 - 19:30</span>
       <div class="item-title">🎪 下午 ｜ 傳奇劇場與主題園區暢玩</div>
       <ul class="item-details">
-        <li>必看劇場：【獅子王慶典 (Festival of the Lion King)】舞台張力極強，記得提早去排隊！</li>
-        <li>暢玩反斗奇兵大本營 (Toy Story Land) 與森林河流之旅 (Jungle River Cruise)。</li>
+        <li>必看劇場：【獅子王慶典 (Festival of the Lion King)】舞台張力極強、冷氣超涼，適合全家坐著歇歇腳，記得提早去排隊！</li>
+        <li>表演時間：下午 2:30、下午 5:00、晚上 6:30</li>
+        <li>隨後暢玩：反斗奇兵大本營 (Toy Story Land) 與森林河流之旅 (Jungle River Cruise)。</li>
       </ul>
       <div class="btn-group">
         <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Toy+Story+Land" target="_blank">📍 地圖導航</a>
@@ -340,8 +431,10 @@
     <div class="item-block">
       <span class="time-tag">⏱ 19:40 - 20:10</span>
       <div class="item-title">🌙 晚上 ｜ 迪士尼城堡夜間煙火光影秀</div>
+      <img class="item-img" src="https://ak-d.tripcdn.com/images/1mi4e224x98wlv3pn5BF6.jpg?proc=resize%2Fm_z%2Cw_375%2Ch_0%3Bformat%2Ff_webp%2C9C2E" alt="🌙 晚上 ｜ 迪士尼城堡夜間煙火光影秀" loading="lazy">
       <ul class="item-details">
-        <li>於奇妙夢想城堡前卡位，觀賞融合煙火、光雕投影與經典音樂的璀璨星光秀。</li>
+        <li>✨ 核心主秀：於奇妙夢想城堡前卡位，觀賞融合煙火、巨型光雕投影與經典迪士尼音樂的璀璨星光秀。</li>
+        <li>表演時間：晚上8:30</li>
       </ul>
       <div class="btn-group">
         <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Castle+of+Magical+Dreams" target="_blank">📍 地圖導航</a>
@@ -351,9 +444,9 @@
       <span class="time-tag">⏱ 20:40 - 22:30</span>
       <div class="item-title">🍽 晚餐 ｜ 東涌 Citygate 美食大補給（二選一）</div>
       <ul class="item-details">
-        <li>散場後搭乘地鐵至東涌站的東薈城 (Citygate)。</li>
-        <li>【方案 A ｜ Oolaa Tung Chung】高質感西式餐酒館，氣氛輕鬆。</li>
-        <li>【方案 B ｜ 大食代 Food Republic】選擇極多元，能迅速補充走了一整天的體力。</li>
+        <li>散場後搭乘地鐵欣澳站轉東涌線，直奔東涌東薈城名店倉 (Citygate Outlets)。</li>
+        <li>🛍 值得逛買：香港最大的 Outlet 商城，各大運動品牌與歐美精品常年有 3 至 7 折折扣，適合在此為全家大補給！</li>
+        <li>【方案 A ｜ Oolaa】高質感西式餐酒館，氣氛輕鬆悠閒，適合聚餐談心。【方案 B ｜ 大食代】選擇多元且出餐迅速。</li>
       </ul>
       <div class="btn-group">
         <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Citygate+Outlets" target="_blank">📍 地圖導航</a>
@@ -365,24 +458,34 @@
       <span class="day-tag">Day-3</span>
       <span class="day-date">2026/06/20</span>
     </div>
-    <div class="day-title">中環文藝復興路線 ｜ 傳奇甘牌燒鵝與太平山百萬夜景大秀</div>
+    <div class="day-title">中環大館歷史路線 ｜ 傳奇甘牌燒鵝與太平山百萬夜景</div>
     <div class="item-block">
-      <span class="time-tag">⏱ 09:30 - 12:30</span>
-      <div class="item-title">☀️ 上午 ｜ 輕鬆慵懶或大佛朝聖（二選一方案）</div>
+      <span class="time-tag">⏱ 09:30 - 10:15</span>
+      <div class="item-title">🚖 輕裝轉場 ｜ 計程車直奔中環新飯店</div>
       <ul class="item-details">
-        <li>【方案 A (輕鬆)】：睡到飽，悠閒晃去中環開啟美食散策。</li>
-        <li>【方案 B (觀光)】：搭乘昂坪 360 纜車前往參觀壯麗的天壇大佛與昂坪市集。</li>
+        <li>全家慵懶睡到飽，退房後直接搭計程車離開迪士尼，前往中環 Motto by Hilton 飯店。</li>
+        <li>車程約 30 分鐘，車資每台約港幣 $240-$280，最省力的轉場方式。</li>
       </ul>
       <div class="btn-group">
-        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Ngong+Ping+360" target="_blank">📍 地圖導航</a>
-        <a class="action-btn btn-ticket" href="https://www.np360.com.hk/tc" target="_blank">🎫 官方購票</a>
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Motto+by+Hilton+Hong+Kong+SoHo" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 10:15 - 12:30</span>
+      <div class="item-title">☕ 上午 ｜ 中環在地美味早茶（輕裝無行李）</div>
+      <ul class="item-details">
+        <li>將大行李寄放在新飯店櫃檯，兩手空空超輕鬆。</li>
+        <li>在飯店附近（上環/中環區）找間道地的港式茶餐廳或老字號蓮香居享用悠閒的早茶。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Motto+by+Hilton+Hong+Kong+SoHo" target="_blank">📍 地圖導航</a>
       </div>
     </div>
     <div class="item-block">
       <span class="time-tag">⏱ 12:30 - 13:30</span>
-      <div class="item-title">🏨 Motto by Hilton 放行李</div>
+      <div class="item-title">🏨 飯店正式入住休息</div>
       <ul class="item-details">
-        <li>前往今日下榻飯店辦理 Check-in 或寄放行李。</li>
+        <li>返回飯店辦理正式入住手續，讓全家人回房間稍微午休休息，為下午的漫步儲備體力。</li>
         <li>🏠 住宿點：Motto by Hilton Hong Kong SoHo（中環/上環區）</li>
       </ul>
       <div class="btn-group">
@@ -390,22 +493,44 @@
       </div>
     </div>
     <div class="item-block">
-      <span class="time-tag">⏱ 13:30 - 17:30</span>
-      <div class="item-title">🏙 下午 ｜ 中環復古街區深度散策</div>
+      <span class="time-tag">⏱ 13:30 - 14:15</span>
+      <div class="item-title">🏙 啟程 ｜ 中環半山手扶梯</div>
       <ul class="item-details">
-        <li>搭乘世界最長的【中環至半山自動扶手電梯】遊覽兩側街景。</li>
-        <li>走訪 PMQ 元創方創意基地、拍下嘉咸街壁畫，並在中環 SoHo 蘇豪區喝杯咖啡。</li>
+        <li>從飯店出發，搭乘世界最長的【中環至半山自動扶手電梯】往上，沿途欣賞熱鬧宏環街景與歐風街道。電影《重慶森林》經典場景。</li>
       </ul>
       <div class="btn-group">
         <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Central–Mid-Levels+Escalators" target="_blank">📍 地圖導航</a>
       </div>
     </div>
     <div class="item-block">
+      <span class="time-tag">⏱ 14:15 - 15:45</span>
+      <div class="item-title">🏛 亮點 ｜ 大館 (Tai Kwun) 歷史文藝巡禮 🌟</div>
+      <img class="item-img" src="https://www.niusnews.com/upload/imgs/default/hkgogo/article17/10.jpg" alt="🏛 亮點 ｜ 大館 (Tai Kwun) 歷史文藝巡禮 🌟" loading="lazy">
+      <ul class="item-details">
+        <li>✨ 值得逛買：由舊警署與監獄改建的頂級歷史園區，紅磚高牆極好拍照。內部充滿冷氣開放的展廳、獨立設計師文創小店與精緻茶館，走累了隨時能坐下歇息。</li>
+        <li>從半山手扶梯的天橋可以直接直通大館內部，完全不繞路。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Tai+Kwun" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 15:45 - 17:15</span>
+      <div class="item-title">📸 散策 ｜ 嘉咸街壁畫 ＆ SoHo 街區 ＆ PMQ</div>
+      <ul class="item-details">
+        <li>✨ 拍照打卡：從大館側面離開，順路向下走便能拍到經典的香港老舊唐樓景觀「嘉咸街壁畫」。</li>
+        <li>隨後可在充滿異國情調的 SoHo 蘇豪區找間咖啡廳休息，或去 PMQ 元創方逛逛在地手工藝品。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Graham+Street+Mural" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
       <span class="time-tag">⏱ 17:30 - 19:00</span>
       <div class="item-title">🍽 晚餐 ｜ 甘牌燒鵝（摘星傳奇風味）🔥</div>
       <ul class="item-details">
-        <li>享用招牌外皮酥脆、肉質多汁嫩滑的燒鵝。</li>
-        <li>📌 排隊提示：人氣極高，建議提早去拿號碼牌，避免正餐時間久候。</li>
+        <li>😋 必吃美食：榮獲米其林推薦的燒臘傳奇！必點「招牌甘牌燒鵝」，外皮油亮酥脆、肉質多汁嫩滑；肥濃叉燒與脆皮燒肉也是一絕。</li>
+        <li>📌 排隊提示：人氣極高，建議派代表提早去拿號碼牌，避免全家人在現場久候。</li>
       </ul>
       <div class="btn-group">
         <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Kam's+Roast+Goose" target="_blank">📍 地圖導航</a>
@@ -413,10 +538,10 @@
     </div>
     <div class="item-block">
       <span class="time-tag">⏱ 19:30 - 21:30</span>
-      <div class="item-title">🌃 晚上 ｜ 太平山百萬夜景主秀</div>
+      <div class="item-title">🌃 晚上主秀 ｜ 太平山百萬夜景巡禮</div>
+      <img class="item-img" src="https://worldtraveleg.com/wp-content/uploads/2024/03/24015_001_victoriapeak-1024x768.jpg" alt="🌃 晚上主秀 ｜ 太平山百萬夜景巡禮" loading="lazy">
       <ul class="item-details">
-        <li>搭乘山頂纜車 Peak Tram 直上太平山頂。</li>
-        <li>可選免費的【獅子亭】或步行 15 分鐘至【盧吉道 (Lugard Road)】拍攝毫無遮擋的絕美香港全景夜景。</li>
+        <li>✨ 亮點推薦：搭乘全新第六代復古綠色山頂纜車（大片全景玻璃窗）直上山頂。推薦全家前往免費且位置絕佳的經典觀景台「獅子亭 (Lions Pavilion)」，角度一流，完美飽覽維多利亞港的百萬夜景！</li>
       </ul>
       <div class="btn-group">
         <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=The+Peak+Tram" target="_blank">📍 地圖導航</a>
@@ -429,23 +554,33 @@
       <span class="day-tag">Day-4</span>
       <span class="day-date">2026/06/21</span>
     </div>
-    <div class="day-title">經典早餐 ｜ 兩大核心商圈最後血拼與必買伴手禮回程</div>
+    <div class="day-title">經典早餐 ｜ 尖沙咀海港城與 K11 最後衝刺、伴手禮與穩健快綫回程</div>
     <div class="item-block">
       <span class="time-tag">⏱ 08:30 - 10:00</span>
-      <div class="item-title">☕ 早餐 ｜ 華嫂冰室朝聖</div>
+      <div class="item-title">☕ 早餐 ｜ 華嫂冰室朝盛</div>
       <ul class="item-details">
-        <li>享用招牌菠蘿包（夾冰鎮奶油與番茄烘蛋）與冰花奶茶，開啟活力最後一天。</li>
+        <li>享用招牌菠蘿包（夾冰鎮奶油與番茄烘蛋）與冰花奶茶，為香港行留下完美味覺記憶。</li>
       </ul>
       <div class="btn-group">
         <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Wasou+Cafe+Wan+Chai" target="_blank">📍 地圖導航</a>
       </div>
     </div>
     <div class="item-block">
-      <span class="time-tag">⏱ 10:00 - 13:00</span>
-      <div class="item-title">🛍 中午 ｜ 核心商圈最後衝刺（二選一）</div>
+      <span class="time-tag">⏱ 10:00 - 10:30</span>
+      <div class="item-title">🏨 飯店退房 ＆ 行李寄存</div>
       <ul class="item-details">
-        <li>【方案 A (尖沙咀)】：主攻 K11 MUSEA 的設計精品與超級巨型商場海港城 (Harbour City)。</li>
-        <li>【方案 B (銅鑼灣)】：崇光百貨 (SOGO) 與地標性複合購物中心時代廣場 (Times Square)。</li>
+        <li>回 Motto by Hilton 辦理退房，將所有大行李先寄放在櫃檯，全家兩手空空、輕裝出發尖沙咀。</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Motto+by+Hilton+Hong+Kong+SoHo" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
+      <span class="time-tag">⏱ 10:30 - 13:00</span>
+      <div class="item-title">🛍 中午 ｜ 尖沙咀巨型商圈最後衝刺 🌟</div>
+      <img class="item-img" src="https://images.unsplash.com/photo-1516681017910-ea9892c902b4?auto=format&fit=crop&w=1200&q=80" alt="🛍 中午 ｜ 尖沙咀巨型商圈最後衝刺 🌟" loading="lazy">
+      <ul class="item-details">
+        <li>✨ 值得逛買：主攻全港最大的【海港城】！可逛亞洲最大的玩具反斗城、高檔美妝專區，並去「誠品生活」看維港海景第一排。最後到頂樓「海運觀點」展望台（270度免費寬廣海景）拍全家完美大合照！</li>
       </ul>
       <div class="btn-group">
         <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Harbour+City" target="_blank">📍 地圖導航</a>
@@ -453,31 +588,43 @@
     </div>
     <div class="item-block">
       <span class="time-tag">⏱ 13:00 - 14:00</span>
-      <div class="item-title">🎁 伴手禮 ｜ 香港必買神物掃貨</div>
+      <div class="item-title">🎁 伴手禮 ｜ 香港必買神物最後大掃貨</div>
       <ul class="item-details">
-        <li>珍妮曲奇 (Jenny Bakery)：入口即化的經典聰明小熊奶油餅乾。</li>
-        <li>順路補齊中環永吉街【檸檬王】的甘草檸檬與在地【蝴蝶酥】。</li>
+        <li>🎁 必買神物 1：【珍妮曲奇小熊餅乾】採購入口即化的經典聰明小熊奶油曲奇鐵盒（尖沙咀店）。</li>
+        <li>🎁 必買神物 2：順路補齊中環永吉街【檸檬王】的老字號甘草檸檬，以及在地知名的香脆蝴蝶酥。</li>
       </ul>
       <div class="btn-group">
         <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Jenny+Bakery+Tsim+Sha+Tsui" target="_blank">📍 地圖導航</a>
       </div>
     </div>
     <div class="item-block">
-      <span class="time-tag">⏱ 14:00 - 14:30</span>
-      <div class="item-title">🚖 啟程 ｜ 出發前往機場</div>
+      <span class="time-tag">⏱ 14:00 - 14:15</span>
+      <div class="item-title">🚖 拿行李 ｜ 返回中環飯店</div>
       <ul class="item-details">
-        <li>返回飯店取回完整行李，搭乘機場快線或計程車出發前往香港國際機場。</li>
+        <li>返回 Motto by Hilton 飯店取回全家寄放的所有大行李。</li>
       </ul>
       <div class="btn-group">
         <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Motto+by+Hilton+Hong+Kong+SoHo" target="_blank">📍 地圖導航</a>
       </div>
     </div>
     <div class="item-block">
+      <span class="time-tag">⏱ 14:15 - 15:00</span>
+      <div class="item-title">🚇 穩健轉場 ｜ 計程車 ➔ 香港站 ➔ 機場快綫</div>
+      <ul class="item-details">
+        <li>1. 從飯店搭乘短程計程車直奔「香港站」（車程約 5-10 分鐘）。</li>
+        <li>2. 購買「機場快綫團體套票」，直接推行李進閘門搭乘快綫列車。</li>
+        <li>3. 24 分鐘一車直達機場航廈，在回程下班時間完美避開市區公路塞車風險！</li>
+      </ul>
+      <div class="btn-group">
+        <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=MTR+Hong+Kong+Station" target="_blank">📍 地圖導航</a>
+      </div>
+    </div>
+    <div class="item-block">
       <span class="time-tag">⏱ 14:30 - 17:35</span>
       <div class="item-title">✈️ 傍晚 ｜ 機場最後採買與圓滿回程</div>
       <ul class="item-details">
-        <li>辦理登機與行李託運，可在免稅店進行最後採買。</li>
-        <li>搭乘 17:35 航班起飛，香港之旅完美圓滿落幕！</li>
+        <li>大約 15:00 抵達機場辦理登機與行李託運，時間非常充裕，可在免稅店進行最後採買。</li>
+        <li>搭乘 17:35 航班起飛，香港全家出遊行程完美圓滿落幕！</li>
       </ul>
       <div class="btn-group">
         <a class="action-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Hong+Kong+International+Airport" target="_blank">📍 地圖導航</a>
@@ -492,12 +639,26 @@
 
     <script>
         const badges = document.querySelectorAll('.day-badge');
+        const scroller = document.getElementById('dayScroller');
+        
         badges.forEach(badge => {
-            badge.addEventListener('click', function() {
+            badge.addEventListener('click', function(e) {
                 badges.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
+                
+                const badgeOffset = this.offsetLeft;
+                const badgeWidth = this.offsetWidth;
+                const scrollerWidth = scroller.offsetWidth;
+                scroller.scrollTo({
+                    left: badgeOffset - (scrollerWidth / 2) + (badgeWidth / 2),
+                    behavior: 'smooth'
+                });
             });
         });
+
+        if(badges.length > 0) {
+            badges[0].classList.add('active');
+        }
     </script>
 </body>
 </html>
